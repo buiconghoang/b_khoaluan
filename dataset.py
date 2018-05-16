@@ -218,7 +218,7 @@ class DataSet (object):
 
 
 
-def read_train_sets(train_path,image_size,validation_size):
+def read_train_sets(train_path,image_size,test_size, validation_size):
     classes = get_labels(train_path)
     class DataSets(object):pass
     
@@ -227,21 +227,28 @@ def read_train_sets(train_path,image_size,validation_size):
     images,labels,img_names,cls = load_train(train_path,image_size)
     images,labels,img_names,cls = shuffle(images,labels,img_names,cls)
     
-    if isinstance(validation_size,float):
-        validation_size=int(images.shape[0] * validation_size) # total_images * validation_size
+    if isinstance(test_size,float) or isinstance(test_size,float) or test_size<1 or validation_size<1 :
+        test_size=int(images.shape[0] * test_size) # total_images * test_size
+        validation_size = test_size + int(images.shape[0] * validation_size)
         # print("images: {}".format(images.shape[0]))
         # print("valid: {}".format(validation_size))
+        
+    test_images = images[:test_size]
+    test_labels = labels[:test_size]
+    test_img_names = img_names[:test_size]
+    test_cls = cls[:test_size]
     
-    validation_images = images[:validation_size]
-    validation_labels = labels[:validation_size]
-    validation_img_names = img_names[:validation_size]
-    validation_cls = cls[:validation_size]
+    validation_images = images[test_size:validation_size]
+    validation_labels = labels[test_size:validation_size]
+    validation_img_names = img_names[test_size:validation_size]
+    validation_cls = cls[test_size:validation_size]
     
     train_images = images[validation_size:]
     train_labels = labels[validation_size:]
     train_img_names = img_names[validation_size:]
     train_cls = cls[validation_size:]
     
+    data_sets.test = DataSet(test_images,test_labels,test_img_names,test_cls)
     data_sets.train= DataSet(train_images,train_labels,train_img_names,train_cls)
     data_sets.valid = DataSet(validation_images,validation_labels,validation_img_names,validation_cls)
     

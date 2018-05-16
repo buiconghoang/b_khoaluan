@@ -1,0 +1,213 @@
+start time: 1526485817.1148167
+epoch: 0 -- iteration: 100 --- loss: 3.81 --- train_acc  6.00% --- valid_acc 12.00%
+
+epoch: 0 -- iteration: 200 --- loss: 2.95 --- train_acc 38.00% --- valid_acc 28.00%
+
+epoch: 0 -- iteration: 300 --- loss: 2.41 --- train_acc 53.00% --- valid_acc 42.00%
+
+epoch: 0 -- iteration: 400 --- loss: 2.26 --- train_acc 53.00% --- valid_acc 41.00%
+
+epoch: 0 -- iteration: 500 --- loss: 2.05 --- train_acc 48.00% --- valid_acc 51.00%
+
+epoch: 1 -- iteration: 600 --- loss: 1.48 --- train_acc 68.00% --- valid_acc 61.00%
+
+epoch: 1 -- iteration: 700 --- loss: 1.72 --- train_acc 72.00% --- valid_acc 57.00%
+
+epoch: 1 -- iteration: 800 --- loss: 1.23 --- train_acc 70.00% --- valid_acc 71.00%
+
+epoch: 1 -- iteration: 900 --- loss: 0.95 --- train_acc 73.00% --- valid_acc 75.00%
+
+epoch: 1 -- iteration: 1000 --- loss: 0.89 --- train_acc 73.00% --- valid_acc 73.00%
+
+epoch: 2 -- iteration: 1100 --- loss: 1.11 --- train_acc 82.00% --- valid_acc 70.00%
+
+epoch: 2 -- iteration: 1200 --- loss: 0.74 --- train_acc 91.00% --- valid_acc 83.00%
+
+epoch: 2 -- iteration: 1300 --- loss: 0.74 --- train_acc 84.00% --- valid_acc 83.00%
+
+epoch: 2 -- iteration: 1400 --- loss: 0.82 --- train_acc 85.00% --- valid_acc 80.00%
+
+epoch: 2 -- iteration: 1500 --- loss: 0.63 --- train_acc 79.00% --- valid_acc 88.00%
+
+epoch: 3 -- iteration: 1600 --- loss: 0.79 --- train_acc 86.00% --- valid_acc 84.00%
+
+epoch: 3 -- iteration: 1700 --- loss: 0.66 --- train_acc 91.00% --- valid_acc 85.00%
+
+epoch: 3 -- iteration: 1800 --- loss: 0.52 --- train_acc 90.00% --- valid_acc 86.00%
+
+epoch: 3 -- iteration: 1900 --- loss: 0.79 --- train_acc 92.00% --- valid_acc 81.00%
+
+epoch: 3 -- iteration: 2000 --- loss: 0.47 --- train_acc 89.00% --- valid_acc 84.00%
+
+epoch: 4 -- iteration: 2100 --- loss: 0.72 --- train_acc 87.00% --- valid_acc 83.00%
+
+epoch: 4 -- iteration: 2200 --- loss: 0.49 --- train_acc 92.00% --- valid_acc 86.00%
+
+epoch: 4 -- iteration: 2300 --- loss: 0.57 --- train_acc 91.00% --- valid_acc 85.00%
+
+epoch: 4 -- iteration: 2400 --- loss: 0.37 --- train_acc 92.00% --- valid_acc 89.00%
+
+epoch: 4 -- iteration: 2500 --- loss: 0.49 --- train_acc 90.00% --- valid_acc 86.00%
+
+epoch: 5 -- iteration: 2600 --- loss: 0.58 --- train_acc 92.00% --- valid_acc 82.00%
+
+epoch: 5 -- iteration: 2700 --- loss: 0.41 --- train_acc 96.00% --- valid_acc 91.00%
+
+epoch: 5 -- iteration: 2800 --- loss: 0.54 --- train_acc 96.00% --- valid_acc 87.00%
+
+epoch: 5 -- iteration: 2900 --- loss: 0.42 --- train_acc 97.00% --- valid_acc 87.00%
+
+epoch: 5 -- iteration: 3000 --- loss: 0.21 --- train_acc 95.00% --- valid_acc 95.00%
+
+epoch: 6 -- iteration: 3100 --- loss: 0.45 --- train_acc 95.00% --- valid_acc 85.00%
+
+epoch: 6 -- iteration: 3200 --- loss: 0.27 --- train_acc 95.00% --- valid_acc 93.00%
+
+epoch: 6 -- iteration: 3300 --- loss: 0.57 --- train_acc 93.00% --- valid_acc 89.00%
+
+epoch: 6 -- iteration: 3400 --- loss: 0.31 --- train_acc 96.00% --- valid_acc 91.00%
+
+epoch: 6 -- iteration: 3500 --- loss: 0.27 --- train_acc 96.00% --- valid_acc 91.00%
+
+epoch: 7 -- iteration: 3600 --- loss: 0.28 --- train_acc 97.00% --- valid_acc 91.00%
+
+epoch: 7 -- iteration: 3700 --- loss: 0.65 --- train_acc 96.00% --- valid_acc 85.00%
+
+epoch: 7 -- iteration: 3800 --- loss: 0.41 --- train_acc 97.00% --- valid_acc 90.00%
+
+epoch: 7 -- iteration: 3900 --- loss: 0.32 --- train_acc 93.00% --- valid_acc 93.00%
+
+epoch: 7 -- iteration: 4000 --- loss: 0.74 --- train_acc 97.00% --- valid_acc 86.00%
+
+epoch: 8 -- iteration: 4100 --- loss: 0.32 --- train_acc 99.00% --- valid_acc 92.00%
+
+epoch: 8 -- iteration: 4200 --- loss: 0.23 --- train_acc 97.00% --- valid_acc 91.00%
+
+epoch: 8 -- iteration: 4300 --- loss: 0.77 --- train_acc 98.00% --- valid_acc 89.00%
+
+epoch: 8 -- iteration: 4400 --- loss: 0.56 --- train_acc 95.00% --- valid_acc 87.00%
+
+epoch: 8 -- iteration: 4500 --- loss: 0.68 --- train_acc 96.00% --- valid_acc 93.00%
+
+epoch: 9 -- iteration: 4600 --- loss: 0.58 --- train_acc 98.00% --- valid_acc 89.00%
+
+epoch: 9 -- iteration: 4700 --- loss: 0.12 --- train_acc 97.00% --- valid_acc 96.00%
+
+epoch: 9 -- iteration: 4800 --- loss: 0.46 --- train_acc 96.00% --- valid_acc 89.00%
+
+epoch: 9 -- iteration: 4900 --- loss: 0.47 --- train_acc 97.00% --- valid_acc 89.00%
+
+epoch: 9 -- iteration: 5000 --- loss: 0.38 --- train_acc 99.00% --- valid_acc 92.00%
+
+epoch: 10 -- iteration: 5100 --- loss: 0.43 --- train_acc 96.00% --- valid_acc 89.00%
+
+epoch: 10 -- iteration: 5200 --- loss: 0.35 --- train_acc 99.00% --- valid_acc 91.00%
+
+epoch: 10 -- iteration: 5300 --- loss: 0.47 --- train_acc 99.00% --- valid_acc 88.00%
+
+epoch: 10 -- iteration: 5400 --- loss: 0.17 --- train_acc 98.00% --- valid_acc 93.00%
+
+epoch: 10 -- iteration: 5500 --- loss: 0.44 --- train_acc 97.00% --- valid_acc 91.00%
+
+epoch: 11 -- iteration: 5600 --- loss: 0.18 --- train_acc 99.00% --- valid_acc 94.00%
+
+epoch: 11 -- iteration: 5700 --- loss: 0.62 --- train_acc 100.00% --- valid_acc 89.00%
+
+epoch: 11 -- iteration: 5800 --- loss: 0.50 --- train_acc 99.00% --- valid_acc 92.00%
+
+epoch: 11 -- iteration: 5900 --- loss: 0.26 --- train_acc 96.00% --- valid_acc 92.00%
+
+epoch: 11 -- iteration: 6000 --- loss: 0.81 --- train_acc 97.00% --- valid_acc 85.00%
+
+epoch: 12 -- iteration: 6100 --- loss: 0.15 --- train_acc 100.00% --- valid_acc 95.00%
+
+epoch: 12 -- iteration: 6200 --- loss: 0.36 --- train_acc 100.00% --- valid_acc 96.00%
+
+epoch: 12 -- iteration: 6300 --- loss: 0.30 --- train_acc 100.00% --- valid_acc 93.00%
+
+epoch: 12 -- iteration: 6400 --- loss: 0.17 --- train_acc 100.00% --- valid_acc 94.00%
+
+epoch: 12 -- iteration: 6500 --- loss: 0.21 --- train_acc 100.00% --- valid_acc 97.00%
+
+epoch: 13 -- iteration: 6600 --- loss: 0.29 --- train_acc 100.00% --- valid_acc 94.00%
+
+epoch: 13 -- iteration: 6700 --- loss: 0.56 --- train_acc 99.00% --- valid_acc 87.00%
+
+epoch: 13 -- iteration: 6800 --- loss: 0.33 --- train_acc 99.00% --- valid_acc 91.00%
+
+epoch: 13 -- iteration: 6900 --- loss: 0.55 --- train_acc 99.00% --- valid_acc 91.00%
+
+epoch: 13 -- iteration: 7000 --- loss: 0.53 --- train_acc 100.00% --- valid_acc 91.00%
+
+epoch: 14 -- iteration: 7100 --- loss: 0.35 --- train_acc 100.00% --- valid_acc 93.00%
+
+epoch: 14 -- iteration: 7200 --- loss: 0.51 --- train_acc 100.00% --- valid_acc 90.00%
+
+epoch: 14 -- iteration: 7300 --- loss: 0.23 --- train_acc 100.00% --- valid_acc 94.00%
+
+epoch: 14 -- iteration: 7400 --- loss: 0.53 --- train_acc 100.00% --- valid_acc 88.00%
+
+epoch: 14 -- iteration: 7500 --- loss: 0.51 --- train_acc 100.00% --- valid_acc 91.00%
+
+epoch: 15 -- iteration: 7600 --- loss: 0.46 --- train_acc 100.00% --- valid_acc 91.00%
+
+epoch: 15 -- iteration: 7700 --- loss: 0.48 --- train_acc 100.00% --- valid_acc 94.00%
+
+epoch: 15 -- iteration: 7800 --- loss: 0.06 --- train_acc 100.00% --- valid_acc 97.00%
+
+epoch: 15 -- iteration: 7900 --- loss: 0.36 --- train_acc 100.00% --- valid_acc 93.00%
+
+epoch: 15 -- iteration: 8000 --- loss: 0.52 --- train_acc 99.00% --- valid_acc 95.00%
+
+epoch: 16 -- iteration: 8100 --- loss: 0.36 --- train_acc 99.00% --- valid_acc 90.00%
+
+epoch: 16 -- iteration: 8200 --- loss: 0.56 --- train_acc 99.00% --- valid_acc 91.00%
+
+epoch: 16 -- iteration: 8300 --- loss: 0.42 --- train_acc 100.00% --- valid_acc 96.00%
+
+epoch: 16 -- iteration: 8400 --- loss: 0.45 --- train_acc 98.00% --- valid_acc 91.00%
+
+epoch: 16 -- iteration: 8500 --- loss: 0.53 --- train_acc 100.00% --- valid_acc 92.00%
+
+epoch: 17 -- iteration: 8600 --- loss: 0.34 --- train_acc 100.00% --- valid_acc 93.00%
+
+epoch: 17 -- iteration: 8700 --- loss: 0.24 --- train_acc 100.00% --- valid_acc 94.00%
+
+epoch: 17 -- iteration: 8800 --- loss: 0.19 --- train_acc 100.00% --- valid_acc 96.00%
+
+epoch: 17 -- iteration: 8900 --- loss: 0.57 --- train_acc 100.00% --- valid_acc 90.00%
+
+epoch: 17 -- iteration: 9000 --- loss: 0.98 --- train_acc 100.00% --- valid_acc 85.00%
+
+epoch: 18 -- iteration: 9100 --- loss: 0.35 --- train_acc 100.00% --- valid_acc 94.00%
+
+epoch: 18 -- iteration: 9200 --- loss: 0.23 --- train_acc 100.00% --- valid_acc 94.00%
+
+epoch: 18 -- iteration: 9300 --- loss: 0.23 --- train_acc 100.00% --- valid_acc 92.00%
+
+epoch: 18 -- iteration: 9400 --- loss: 0.63 --- train_acc 99.00% --- valid_acc 90.00%
+
+epoch: 18 -- iteration: 9500 --- loss: 0.33 --- train_acc 98.00% --- valid_acc 95.00%
+
+epoch: 19 -- iteration: 9600 --- loss: 0.59 --- train_acc 100.00% --- valid_acc 90.00%
+
+epoch: 19 -- iteration: 9700 --- loss: 0.69 --- train_acc 100.00% --- valid_acc 90.00%
+
+epoch: 19 -- iteration: 9800 --- loss: 1.00 --- train_acc 100.00% --- valid_acc 92.00%
+
+epoch: 19 -- iteration: 9900 --- loss: 0.20 --- train_acc 100.00% --- valid_acc 95.00%
+
+epoch: 19 -- iteration: 10000 --- loss: 0.49 --- train_acc 100.00% --- valid_acc 94.00%
+
+epoch: 20 -- iteration: 10100 --- loss: 0.11 --- train_acc 100.00% --- valid_acc 96.00%
+
+epoch: 20 -- iteration: 10200 --- loss: 0.23 --- train_acc 100.00% --- valid_acc 95.00%
+
+epoch: 20 -- iteration: 10300 --- loss: 0.72 --- train_acc 99.00% --- valid_acc 93.00%
+
+epoch: 20 -- iteration: 10400 --- loss: 0.36 --- train_acc 100.00% --- valid_acc 89.00%
+
+epoch: 20 -- iteration: 10500 --- loss: 0.32 --- train_acc 100.00% --- valid_acc 94.00%
+
+end time: 1526487187.622616
+run time: 1370.5077993869781s = 22.841796656449635m
