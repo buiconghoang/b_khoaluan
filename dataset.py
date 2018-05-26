@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[12]:
+# In[1]:
 
 
 import cv2 
@@ -16,7 +16,9 @@ import matplotlib.image as mpimg
 from matplotlib   import pyplot as plt
 from math import pi
 import pickle
-get_ipython().magic('matplotlib inline')
+import imutils
+
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # Test hàm
@@ -61,26 +63,24 @@ def get_labels(train_path):
 
 
 IMAGE_SIZE=64
-def rotate_images(X_imgs, start_angle=45, end_angle=-45, n_images=2):
-    X_rotate = []
-#     iterate_at = (end_angle - start_angle) / (n_images - 1)
-    do = np.random.uniform(end_angle,start_angle,n_images)
+def rotate_images(images, start_angle=45, end_angle=-45, n_images=2):
+    X_rotate=[]
     
-    tf.reset_default_graph()
-    X = tf.placeholder(tf.float32, shape = (None, IMAGE_SIZE, IMAGE_SIZE, 3))
-    radian = tf.placeholder(tf.float32, shape = (len(X_imgs)))
-    tf_img = tf.contrib.image.rotate(X, radian)
-    with tf.Session() as sess:
-        sess.run(tf.global_variables_initializer())
+    height = images[0].shape[0]
+    width = images[0].shape[1]
+    channels = images[0].shape[2]
+    num_imgs = images.shape[0]
+    angles= np.random.uniform(end_angle,start_angle,n_images)
     
-        for index in range(n_images):
-            degrees_angle = do[index]
-            radian_value = degrees_angle * pi / 180  # Convert to radian
-            radian_arr = [radian_value] * len(X_imgs)
-            rotated_imgs = sess.run(tf_img, feed_dict = {X: X_imgs, radian: radian_arr})
-            X_rotate.extend(rotated_imgs)
-
+    for angle in angles:
+        for i in range(num_imgs):
+            rotated = imutils.rotate(images[i], angle)
+            X_rotate.append(rotated)
+    
     X_rotate = np.array(X_rotate, dtype = np.float32)
+    X_rotate = np.reshape(X_rotate,(n_images*num_imgs,height,width,channels))
+#     print(f"shape X_rotate: {X_rotate.shape}")
+
     return X_rotate
 
 
@@ -100,22 +100,31 @@ def central_scale_images(X_imgs, scales=np.round(np.random.uniform(0.8,1,3),2)):
     X = tf.placeholder(tf.float32, shape = (1, IMAGE_SIZE, IMAGE_SIZE, 3))
     # Define Tensorflow operation for all scales but only one base image at a time
     tf_img = tf.image.crop_and_resize(X, boxes, box_ind, crop_size)
-    with tf.Session() as sess:
-        sess.run(tf.global_variables_initializer())
-        
-        for img_data in X_imgs:
-            batch_img = np.expand_dims(img_data, axis = 0)
-            scaled_imgs = sess.run(tf_img, feed_dict = {X: batch_img})
-            X_scale_data.extend(scaled_imgs)
+    
+    
+    my_config =tf.ConfigProto(allow_soft_placement=True,log_device_placement=True)
+    my_config.gpu_options.allow_growth = True
+    sess = tf.Session(config=my_config)
+
+    sess.run(tf.global_variables_initializer())
+
+    for img_data in X_imgs:
+        batch_img = np.expand_dims(img_data, axis = 0)
+        scaled_imgs = sess.run(tf_img, feed_dict = {X: batch_img})
+        X_scale_data.extend(scaled_imgs)
     
     X_scale_data = np.array(X_scale_data, dtype = np.float32)
+    sess.close()
     return X_scale_data
 def generate_data(X_imgs):
     
     rotated_imgs = rotate_images(X_imgs)
+    rotated_imgs= np.concatenate((X_imgs,rotated_imgs),axis=0)
     scaled_imgs =central_scale_images(rotated_imgs)
     
-    result = np.concatenate((X_imgs,rotated_imgs,scaled_imgs,),axis=0)
+#     print(f"scaled_img shape: {scaled_imgs.shape}")
+    result = np.concatenate((rotated_imgs,scaled_imgs),axis=0)
+#     print(f"result shape: {result.shape}")
     return result
     
 
@@ -235,7 +244,7 @@ class DataSet (object):
         return self._images[start:end], self._labels[start:end], self._img_names[start:end], self._cls[start:end]
 
 
-# In[8]:
+# In[9]:
 
 
 
@@ -278,17 +287,18 @@ def read_train_sets(train_path,image_size,test_size, validation_size):
 
 
 
-# validation_size = 0.22
-# train_path='D:\DatasetJapanese\\data_katagana\katakana_test'
+# validation_size = 0.1
+# test_size=0.2
+# train_path=r'D:\Hoang\test_generate_data'
 
-# data=read_train_sets("D:\DatasetJapanese\data_katagana\katakana_test",image_size=10,validation_size=validation_size)
+# data=read_train_sets(train_path,image_size=64,test_size=test_size,validation_size=validation_size)
 # images,labels,img_names,cls = load_train(train_path,64)
 # print(data.train.images.shape)
 # print(data.valid.images.shape)
 # print(images.shape)
 
 
-# In[13]:
+# In[ ]:
 
 
 # data = read_train_sets(r"D:\DatasetJapanese\data_katagana\minitest",64,0.2,0.1)
@@ -303,13 +313,13 @@ def read_train_sets(train_path,image_size,test_size, validation_size):
 #     pickle.dump(data_train, f, pickle.HIGHEST_PROTOCOL)
 
 
-# In[17]:
+# In[ ]:
 
 
 # data.train.images.shape
 
 
-# In[20]:
+# In[ ]:
 
 
 # np.random.uniform(10,-10,5)
