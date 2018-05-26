@@ -1,75 +1,33 @@
 
 # coding: utf-8
 
-# In[47]:
+# In[12]:
 
 
-import cv2 as cv
+import cv2 
 import os
 import glob
 from sklearn.utils import shuffle
+from matplotlib import pyplot as plt
+import tensorflow as tf
 import numpy as np
 from pathlib import Path
 import matplotlib.image as mpimg
 from matplotlib   import pyplot as plt
-get_ipython().run_line_magic('matplotlib', 'inline')
+from math import pi
+import pickle
+get_ipython().magic('matplotlib inline')
 
 
 # Test hàm
 
-# In[ ]:
-
-
-# x=np.arange(1,13).reshape(2,2,3)
-# y=np.arange(1,13).reshape(3,4)
-# print(x)
-# print(x.shape[-1])
-
-# # a,b=shuffle(x,y)
-# # c=shuffle(y)
-
-# # d=x.shape[0]
-# # print(d)
-# # print("x:\n",x)
-# # print("a\n",a)
-# # print("b\n",b)
-# # print("c\n",c)
-
-# #test array
-# a=[]
-# for i in range(5):
-#     a.append(i)
-# print(a)
-
-# a=np.array(a)
-# print(a.shape[0])
-
-# p=Path(dir_path)
-
-
-# In[3]:
-
-
-#path file
-# p =Path(r"D:\DatasetJapanese\data_use_kl")
-# print(p.is_dir())
-# classifier =[]
-# for file in p.iterdir():
-#     if (file.is_dir()):
-# #         print(file)
-#         classifier.append(file)
-
-# print(len(classifier))
-# str(classifier[0])
-
-
-# In[21]:
+# In[2]:
 
 
 ## Lấy danh sách label trong tập train
 
 
-# In[28]:
+# In[3]:
 
 
 def get_labels(train_path):
@@ -97,7 +55,72 @@ def get_labels(train_path):
 # print((b[0])) #label
 
 
-# In[34]:
+# GenerateData
+
+# In[4]:
+
+
+IMAGE_SIZE=64
+def rotate_images(X_imgs, start_angle=45, end_angle=-45, n_images=2):
+    X_rotate = []
+#     iterate_at = (end_angle - start_angle) / (n_images - 1)
+    do = np.random.uniform(end_angle,start_angle,n_images)
+    
+    tf.reset_default_graph()
+    X = tf.placeholder(tf.float32, shape = (None, IMAGE_SIZE, IMAGE_SIZE, 3))
+    radian = tf.placeholder(tf.float32, shape = (len(X_imgs)))
+    tf_img = tf.contrib.image.rotate(X, radian)
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+    
+        for index in range(n_images):
+            degrees_angle = do[index]
+            radian_value = degrees_angle * pi / 180  # Convert to radian
+            radian_arr = [radian_value] * len(X_imgs)
+            rotated_imgs = sess.run(tf_img, feed_dict = {X: X_imgs, radian: radian_arr})
+            X_rotate.extend(rotated_imgs)
+
+    X_rotate = np.array(X_rotate, dtype = np.float32)
+    return X_rotate
+
+
+def central_scale_images(X_imgs, scales=np.round(np.random.uniform(0.8,1,3),2)):
+    # Various settings needed for Tensorflow operation
+    
+    boxes = np.zeros((len(scales), 4), dtype = np.float32)
+    for index, scale in enumerate(scales):
+        x1 = y1 = 0.5 - 0.5 * scale # To scale centrally
+        x2 = y2 = 0.5 + 0.5 * scale
+        boxes[index] = np.array([y1, x1, y2, x2], dtype = np.float32)
+    box_ind = np.zeros((len(scales)), dtype = np.int32)
+    crop_size = np.array([IMAGE_SIZE, IMAGE_SIZE], dtype = np.int32)
+    
+    X_scale_data = []
+    tf.reset_default_graph()
+    X = tf.placeholder(tf.float32, shape = (1, IMAGE_SIZE, IMAGE_SIZE, 3))
+    # Define Tensorflow operation for all scales but only one base image at a time
+    tf_img = tf.image.crop_and_resize(X, boxes, box_ind, crop_size)
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        
+        for img_data in X_imgs:
+            batch_img = np.expand_dims(img_data, axis = 0)
+            scaled_imgs = sess.run(tf_img, feed_dict = {X: batch_img})
+            X_scale_data.extend(scaled_imgs)
+    
+    X_scale_data = np.array(X_scale_data, dtype = np.float32)
+    return X_scale_data
+def generate_data(X_imgs):
+    
+    rotated_imgs = rotate_images(X_imgs)
+    scaled_imgs =central_scale_images(rotated_imgs)
+    
+    result = np.concatenate((X_imgs,rotated_imgs,scaled_imgs,),axis=0)
+    return result
+    
+
+
+# In[5]:
 
 
 def load_train(train_path,img_size):
@@ -115,25 +138,23 @@ def load_train(train_path,img_size):
 #         print(f"path: {path}")
         files = glob.glob(path) #return list of path names that match path =path;
 #         print("file: ",files)
-        i=0
+        
         for fi in files:
-            img = cv.imread(fi);
-            img= cv.resize(img,(img_size,img_size))
+            img = cv2.imread(fi);
+            img= cv2.resize(img,(img_size,img_size))
             img=img.astype(np.float32)
             img=np.multiply(img, 1.0/255.0)
-            
-            images.append(img)
-            label = np.zeros(len(classes))
-            label[index]=1
-            labels.append(label)
-            
+            img = np.reshape(img,(-1,64,64,3))
+            data_is_generated = generate_data(img) #shpae [num_img,img_size,img_size,channel]
             filename_base = os.path.basename(fi)
-            img_names.append(filename_base)
-            cls.append(fields)
-            # if(i==0): #in 1 lan
-            #     print('filename_base: {}'.format(filename_base))
-            #     print('fields: {}'.format(fields))
-            #     i+=1
+            for i in range (data_is_generated.shape[0]):
+                images.append(data_is_generated[0])
+                label = np.zeros(len(classes))
+                label[index]=1
+                labels.append(label)
+                img_names.append(filename_base)
+                cls.append(fields)
+          
   
     images=np.array(images)
     labels=np.array(labels)
@@ -143,7 +164,7 @@ def load_train(train_path,img_size):
     return images,labels,img_names,cls
 
 
-# In[56]:
+# In[6]:
 
 
 # # test load_train function
@@ -154,7 +175,7 @@ def load_train(train_path,img_size):
 # print(images.shape[0])# total_images
 
 
-# In[53]:
+# In[7]:
 
 
 class DataSet (object):
@@ -214,7 +235,7 @@ class DataSet (object):
         return self._images[start:end], self._labels[start:end], self._img_names[start:end], self._cls[start:end]
 
 
-# In[68]:
+# In[8]:
 
 
 
@@ -228,7 +249,7 @@ def read_train_sets(train_path,image_size,test_size, validation_size):
     images,labels,img_names,cls = shuffle(images,labels,img_names,cls)
     
     if isinstance(test_size,float) or isinstance(test_size,float) or test_size<1 or validation_size<1 :
-        test_size=int(images.shape[0] * test_size) # total_images * test_size
+        test_size=int(images.shape[0] * test_size) # total_images * validation_size
         validation_size = test_size + int(images.shape[0] * validation_size)
         # print("images: {}".format(images.shape[0]))
         # print("valid: {}".format(validation_size))
@@ -265,4 +286,31 @@ def read_train_sets(train_path,image_size,test_size, validation_size):
 # print(data.train.images.shape)
 # print(data.valid.images.shape)
 # print(images.shape)
+
+
+# In[13]:
+
+
+# data = read_train_sets(r"D:\DatasetJapanese\data_katagana\minitest",64,0.2,0.1)
+# class DataCompression(object):
+#     def __init__(self,data):
+#         self.train = data.train
+#         self.valid = data.valid
+#         self.test = data.test
+        
+# data_train = DataCompression(data)
+# with open("train.file", "wb") as f:
+#     pickle.dump(data_train, f, pickle.HIGHEST_PROTOCOL)
+
+
+# In[17]:
+
+
+# data.train.images.shape
+
+
+# In[20]:
+
+
+# np.random.uniform(10,-10,5)
 
