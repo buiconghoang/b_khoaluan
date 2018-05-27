@@ -70,6 +70,7 @@ def rotate_images(images, start_angle=45, end_angle=-45, n_images=2):
     width = images[0].shape[1]
     channels = images[0].shape[2]
     num_imgs = images.shape[0]
+    
     angles= np.random.uniform(end_angle,start_angle,n_images)
     
     for angle in angles:
@@ -84,7 +85,7 @@ def rotate_images(images, start_angle=45, end_angle=-45, n_images=2):
     return X_rotate
 
 
-def central_scale_images(X_imgs, scales=np.round(np.random.uniform(0.8,1,3),2)):
+def central_scale_images(X_imgs, scales=np.round(np.random.uniform(0.75,1,3),2)):
     # Various settings needed for Tensorflow operation
     
     boxes = np.zeros((len(scales), 4), dtype = np.float32)
@@ -97,7 +98,7 @@ def central_scale_images(X_imgs, scales=np.round(np.random.uniform(0.8,1,3),2)):
     
     X_scale_data = []
     tf.reset_default_graph()
-    X = tf.placeholder(tf.float32, shape = (1, IMAGE_SIZE, IMAGE_SIZE, 3))
+    X = tf.placeholder(tf.float32, shape = (None, IMAGE_SIZE, IMAGE_SIZE,1))
     # Define Tensorflow operation for all scales but only one base image at a time
     tf_img = tf.image.crop_and_resize(X, boxes, box_ind, crop_size)
     
@@ -119,13 +120,16 @@ def central_scale_images(X_imgs, scales=np.round(np.random.uniform(0.8,1,3),2)):
 def generate_data(X_imgs):
     
     rotated_imgs = rotate_images(X_imgs)
+ 
     rotated_imgs= np.concatenate((X_imgs,rotated_imgs),axis=0)
+#     print(f"rotated_imgs shape: {rotated_imgs.shape}")
     scaled_imgs =central_scale_images(rotated_imgs)
     
 #     print(f"scaled_img shape: {scaled_imgs.shape}")
     result = np.concatenate((rotated_imgs,scaled_imgs),axis=0)
 #     print(f"result shape: {result.shape}")
     return result
+    
     
 
 
@@ -147,13 +151,13 @@ def load_train(train_path,img_size):
 #         print(f"path: {path}")
         files = glob.glob(path) #return list of path names that match path =path;
 #         print("file: ",files)
-        
+        print(f"read file name: {fields}")
         for fi in files:
-            img = cv2.imread(fi);
+            img = cv2.imread(fi,0);
             img= cv2.resize(img,(img_size,img_size))
             img=img.astype(np.float32)
             img=np.multiply(img, 1.0/255.0)
-            img = np.reshape(img,(-1,64,64,3))
+            img = np.reshape(img,(-1,64,64,1))
             data_is_generated = generate_data(img) #shpae [num_img,img_size,img_size,channel]
             filename_base = os.path.basename(fi)
             for i in range (data_is_generated.shape[0]):
@@ -244,7 +248,7 @@ class DataSet (object):
         return self._images[start:end], self._labels[start:end], self._img_names[start:end], self._cls[start:end]
 
 
-# In[9]:
+# In[8]:
 
 
 
@@ -298,7 +302,7 @@ def read_train_sets(train_path,image_size,test_size, validation_size):
 # print(images.shape)
 
 
-# In[ ]:
+# In[9]:
 
 
 # data = read_train_sets(r"D:\DatasetJapanese\data_katagana\minitest",64,0.2,0.1)
@@ -313,13 +317,13 @@ def read_train_sets(train_path,image_size,test_size, validation_size):
 #     pickle.dump(data_train, f, pickle.HIGHEST_PROTOCOL)
 
 
-# In[ ]:
+# In[10]:
 
 
 # data.train.images.shape
 
 
-# In[ ]:
+# In[11]:
 
 
 # np.random.uniform(10,-10,5)
