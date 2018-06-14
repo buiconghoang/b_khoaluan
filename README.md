@@ -16,9 +16,9 @@ Model: (file train)
   
   model tự tạo có vẻ kết quả dự đoán chính xác hơn một xíu do tỉ lệ train và test chưa đến ngưỡng 100% còn model M6-1 thì dính ngưỡng 100% vài lần nên chắc ăn theo dữ liệu ban đầu nhiều quá.
 Test: 
-  - Xử lý dữ liệu đầu vào:
+Xử lý dữ liệu đầu vào:
     + crop ảnh vào thành 40x40, cái này chỉ bao quanh chữ, nếu không chữ sẽ to toàn ảnh và không khớp với dữ liệu train. Dữ liệu train thì cái ảnh rơi vào khoảng 40x40, hầu như cái nào cũng có padding 
     + thêm padding 12x12 vào mỗi ảnh mình crop
-  - test ảnh:
+Test ảnh:
     + file Test2.py và test2 jupyter notebook: test ảnh thông thường, mình đưa đường dẫn ảnh vào và chạy, cần phải chỉnh đường dẫn model, file Test2.py để import vào file giao diện
     + file app : vẽ và crop ảnh truyền vào Test2.py để dự đoán kết quả
