@@ -137,7 +137,7 @@ class Test(object):
         my_config.gpu_options.allow_growth = True
         
         self.sess = tf.Session(config=my_config)
-        path_model_last = tf.train.latest_checkpoint(r"..\a_model_khoa_luan\model")
+        path_model_last = tf.train.latest_checkpoint(r"..\modelGraph\myModel\model")
         print(f"path_model_last: {path_model_last}")
         saver = tf.train.import_meta_graph(path_model_last +".meta", clear_devices=True)
         saver.restore(self.sess, path_model_last)
